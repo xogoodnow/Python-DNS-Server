@@ -1,10 +1,18 @@
 from flask import Flask, request, make_response
 import subprocess
-from logging import info
-from logging.config import dictConfig
-import re
+import logging
 
 app = Flask(__name__)
+logging.basicConfig(filename='./flask.log', level=logging.INFO)
+
+# Create a new logger for the application
+app_logger = logging.getLogger('app')
+app_logger.setLevel(logging.INFO)
+
+# Add a handler to the logger
+handler = logging.StreamHandler()
+handler.setLevel(logging.INFO)
+app_logger.addHandler(handler)
 
 @app.route('/dns', methods=["POST"])
 def dns_api():
@@ -18,9 +26,9 @@ def dns_api():
     else:
         return make_response({'message': 'Unsupported protocol'}, 422)
 
-    info('i reached here')
+    app_logger.info('i reached here')
     query_response = subprocess.check_output(f'dig {domain} @127.0.0.1 -p 5000 {protocol}', shell=True)
-    info(f'command response is {query_response}')
+    app_logger.info(f'command response is {query_response}')
     query_response = query_response.decode('utf-8')
     query_response = query_response.replace('\n', '  ')
     query_response = query_response.replace('\t', '  ')
@@ -35,12 +43,6 @@ def dns_api():
     #
 
     return make_response({"result": query_response}, 200)
-
-
-
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=8080)
