@@ -3,7 +3,7 @@ import subprocess
 import logging
 
 app = Flask(__name__)
-logging.basicConfig(filename='./flask.log', level=logging.INFO)
+logging.basicConfig(filename='/root/flask.log', level=logging.INFO)
 
 # Create a new logger for the application
 app_logger = logging.getLogger('app')
@@ -27,7 +27,7 @@ def dns_api():
         return make_response({'message': 'Unsupported protocol'}, 422)
 
     app_logger.info('i reached here')
-    query_response = subprocess.check_output(f'dig {domain} @127.0.0.1 -p 5000 {protocol}', shell=True)
+    query_response = subprocess.check_output(f'dig {domain} @172.17.0.1 -p 5000 {protocol}', shell=True)
     app_logger.info(f'command response is {query_response}')
     query_response = query_response.decode('utf-8')
     query_response = query_response.replace('\n', '  ')

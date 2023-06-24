@@ -17,7 +17,7 @@ def count_POST_request(word, filename):
 
 # Use a regex pattern to match POST requests
 post_pattern = r'\bPOST\b'
-log_file = 'flask.log'
+log_file = '/root/flask.log'
 
 count_POST_request(post_pattern, log_file)
 
