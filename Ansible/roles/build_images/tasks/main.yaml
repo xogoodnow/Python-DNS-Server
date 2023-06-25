@@ -6,7 +6,7 @@
     tag: 1.0
     source: build
     build:
-      path: /root/DNS_SERVER/Python-DNS-Server/Docker/DNS_Docker
+      path: /root/DNS_SERVER/Docker/DNS_Docker/
 
 
 - name: Build the image for flask API
@@ -15,7 +15,7 @@
     tag: 1.0
     source: build
     build:
-      path: /root/DNS_SERVER/Python-DNS-Server/Docker/Exporter_Docker
+      path: /root/DNS_SERVER/Docker/Flask_Docker/
 
 
 - name: Build the image for the exporter
@@ -24,7 +24,7 @@
     tag: 1.0
     source: build
     build:
-      path: /root/DNS_SERVER/Python-DNS-Server/Docker/Flask_Docker
+      path: /root/DNS_SERVER/Docker/Exporter_Docker/
 
 
 

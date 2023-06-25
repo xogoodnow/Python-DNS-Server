@@ -9,7 +9,8 @@
   docker_container:
     name: python_dns_server
     image: dns_server:1.0
-    state: present
+    state: started
+    network_mode: host
     exposed_ports:
       - "5000:5000/udp"
       - "5000:5000/tcp"
@@ -19,7 +20,9 @@
   docker_container:
     name: flask_api
     image: flask_api:1.0
-    state: present
+    state: started
+    network_mode: host
+
     exposed_ports:
       - "8080:8080"
     volumes:
@@ -30,7 +33,8 @@
   docker_container:
     name: dns_exporter
     image: dns_exporter:1.0
-    state: present
+    state: started
+    network_mode: host
     exposed_ports:
       - "9876:9876"
     volumes:
