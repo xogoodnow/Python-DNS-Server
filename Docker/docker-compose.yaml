@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  dns_server:
+    image: python_dns_server
+    container_name: dns_server
+    restart: on-failure
+    ports:
+      - "5000:5000"
+
+
+  flask_api:
+    image: flask_api:1.65
+    container_name: 'flask_api'
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    volumes:
+      - metrics:/root
+
+  exporter:
+    image: exporter_dns:1.2
+    container_name: 'exporter'
+    restart: on-failure
+    ports:
+      - "9876:9876"
+    volumes:
+      - metrics:/root
+
+
+volumes:
+  metrics:
+
