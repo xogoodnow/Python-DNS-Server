@@ -3,12 +3,12 @@ all:
     bamdad:
       hosts:
         ba-dns-1:
-          ansible_host:
-          ansible_user:
+          ansible_host: 37.32.14.227
+          ansible_user: ubuntu
     simin:
       hosts:
         si-dns-1:
-          ansible_host:
-          ansible_user:
+          ansible_host: 37.32.23.41
+          ansible_user: ubuntu
 
 

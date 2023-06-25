@@ -7,16 +7,16 @@
       include_role:
         name: "{{ item }}"
       with_items:
-        - /root/DNS_SERVER/ansible/k8s/roles/pre_setup
-        - /root/DNS_SERVER/ansible/k8s/roles/clone_the_code
-        - /root/DNS_SERVER/ansible/k8s/roles/install_docker
-  
+        - /root/DNS_server/Python-DNS-Server/Ansible/roles/pre_set_up
+        - /root/DNS_server/Python-DNS-Server/Ansible/roles/clone_the_code
+        - /root/DNS_server/Python-DNS-Server/Ansible/roles/install_docker
+
 
     - name: set up the DNS server
       include_role:
         name: "{{ item }}"
       with_items:
-        - /root/DNS_SERVER/ansible/k8s/roles/build_images
-        - /root/DNS_SERVER/ansible/k8s/roles/run_application
+        - /root/DNS_server/Python-DNS-Server/Ansible/roles/build_images
+        - /root/DNS_server/Python-DNS-Server/Ansible/roles/run_applications
 
 
