@@ -1,0 +1,16 @@
+---
+- name: Create a directory for the files
+  file:
+    path: /root/DNS_SERVER
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: clone the github project
+  git:
+    repo: https://github.com/xogoodnow/Python-DNS-Server
+    dest: /root/DNS_SERVER/
+
+
+

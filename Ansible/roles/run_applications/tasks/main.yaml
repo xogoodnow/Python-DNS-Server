@@ -1,0 +1,37 @@
+---
+- name: create a volume to be shared between the flask API and exporter
+  docker_volume:
+    volume_name: shared_data_volume
+    state: present
+
+# Container for the Python DNS server
+- name: Run the dns container
+  docker_container:
+    name: python_dns_server
+    image: dns_server:1.0
+    state: present
+    exposed_ports:
+      - "5000:5000/udp"
+      - "5000:5000/tcp"
+
+# Container for the Flask API, sharing the data volume with the exporter container
+- name: Run the flask API container
+  docker_container:
+    name: flask_api
+    image: flask_api:1.0
+    state: present
+    exposed_ports:
+      - "8080:8080"
+    volumes:
+      - "shared_data_volume:/root/"
+
+# Container for the exporter, sharing the data volume with the Flask API container
+- name: Run the exporter container
+  docker_container:
+    name: dns_exporter
+    image: dns_exporter:1.0
+    state: present
+    exposed_ports:
+      - "9876:9876"
+    volumes:
+      - "shared_data_volume:/root/"

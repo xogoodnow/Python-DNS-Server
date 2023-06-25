@@ -1,0 +1,45 @@
+---
+- name: check if the system is live
+  ping:
+    data: alive
+
+- name: update and upgrade the system
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+
+- name: install basic packages
+  apt:
+    pkg:
+      - net-tools
+      - xz-utils
+      - bmon
+      - curl
+      - tcpdump
+      - vim
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - resolvconf
+    state: present
+
+
+- name: config the servername for the server
+  copy:
+    dest: /etc/resolvconf/resolv.conf.d/head
+    content: |
+      nameserver 8.8.8.8
+
+- name: Edit the resolv.conf file
+  copy:
+    dest: /etc/resolv.conf
+    content:
+      nameserver 8.8.8.8
+
+
+- name: enable resolvconf service
+  systemd:
+    name: resolvconf
+    state: started
+    enabled: yes
